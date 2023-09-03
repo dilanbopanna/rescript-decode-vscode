@@ -3,7 +3,7 @@
   "displayName": "Rescript Decode",
   "description": "Precision JSON-to-Rescript type conversion for generating efficient decode functions in Visual Studio Code.",
   "version": "0.0.3",
-  "icon": "./res-dec-logo.png",
+  "icon": "res-dec-logo.png",
   "author": "Dilan Bopanna",
   "publisher": "dilanBopanna",
   "repository": {
