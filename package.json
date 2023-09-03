@@ -2,7 +2,7 @@
   "name": "rescript-decode",
   "displayName": "Rescript Decode",
   "description": "Precision JSON-to-Rescript type conversion for generating efficient decode functions in Visual Studio Code.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Dilan Bopanna",
   "publisher": "dilanBopanna",
   "repository": {
@@ -54,8 +54,7 @@
     "esbuild": "^0.19.2",
     "eslint": "^8.47.0",
     "glob": "^10.3.3",
-    "mocha": "^10.2.0",
-    "typescript": "^5.1.6"
+    "mocha": "^10.2.0"
   },
   "dependencies": {
     "rescript": "^10.1.4"
