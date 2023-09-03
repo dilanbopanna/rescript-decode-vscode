@@ -1,0 +1,15 @@
+{
+  "name": "rescript-decode",
+  "package-specs": [
+    {
+      "module": "commonjs",
+      "in-source": true
+    }
+  ],
+  "sources": {
+    "dir": "src",
+    "subdirs": true
+  },
+  "suffix": ".bs.js",
+  "bs-dependencies": []
+}

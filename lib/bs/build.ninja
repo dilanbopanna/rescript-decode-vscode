@@ -1,0 +1,13 @@
+rescript = 1
+rule astj
+  command = /Users/bopanna.mj/Code/rescript-decode/node_modules/rescript/darwinarm64/bsc.exe  -bs-v 10.1.4  -absname -bs-ast -o $out $i
+o src/decodeFunction.ast : astj ../../src/decodeFunction.res
+rule deps
+  command = /Users/bopanna.mj/Code/rescript-decode/node_modules/rescript/darwinarm64/bsb_helper.exe -hash f7bd21a12e75d25b445f60faa6bdd654 $in
+  restat = 1
+o src/decodeFunction.d : deps src/decodeFunction.ast
+rule mij
+  command = /Users/bopanna.mj/Code/rescript-decode/node_modules/rescript/darwinarm64/bsc.exe -I src   -bs-package-name rescript-decode -bs-package-output commonjs:$in_d:.bs.js $i
+  dyndep = 1
+  restat = 1
+o src/decodeFunction.cmj src/decodeFunction.cmi ../../src/decodeFunction.bs.js : mij src/decodeFunction.ast

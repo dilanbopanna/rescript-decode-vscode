@@ -1,0 +1,10 @@
+rescript = 1
+rule cp
+  command = cp $i $out
+rule touch
+ command = touch $out
+o decodeFunction.cmi : cp ../bs/src/decodeFunction.cmi
+o decodeFunction.cmj : cp ../bs/src/decodeFunction.cmj
+o decodeFunction.cmt : cp ../bs/src/decodeFunction.cmt
+o decodeFunction.res : cp ../../src/decodeFunction.res
+build install.stamp : touch decodeFunction.cmi decodeFunction.cmj 
