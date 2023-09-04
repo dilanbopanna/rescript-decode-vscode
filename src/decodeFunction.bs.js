@@ -71,6 +71,7 @@ function defaultValueMapper(str) {
   switch (str) {
     case "Js.Json.t" :
         return "Js.Dict.empty()->Js.Json.object_";
+    case "array<float>" :
     case "array<int>" :
     case "array<string>" :
         return "[]";
@@ -132,6 +133,8 @@ function typeFunctionMapper(str, type_) {
   switch (str) {
     case "Js.Json.t" :
         return "getJsonObjectFromDict(dict, \"" + type_ + "\")";
+    case "array<float>" :
+        return "getFloatArrayFromDict(dict, \"" + type_ + "\")";
     case "array<int>" :
         return "getIntArrayFromDict(dict, \"" + type_ + "\", [])";
     case "array<string>" :
@@ -144,6 +147,8 @@ function typeFunctionMapper(str, type_) {
         return "getInt(dict, \"" + type_ + "\", 0)";
     case "option<Js.Json.t>" :
         return "getOptionalJsonFromDict(dict, \"" + type_ + "\")";
+    case "option<array<float>>" :
+        return "getOptionFloatArrayFromDict(dict, \"" + type_ + "\")";
     case "option<array<int>>" :
         return "getOptionIntArrayFromDict(dict, \"" + type_ + "\")";
     case "option<array<string>>" :

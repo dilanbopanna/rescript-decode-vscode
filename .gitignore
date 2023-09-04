@@ -1,3 +1,6 @@
 node_modules
 .vscode-test/
 *.vsix
+lib/bs/.compiler.log
+lib/bs/src/decodeFunction.ast
+lib/bs/src/decodeFunction.ast

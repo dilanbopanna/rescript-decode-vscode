@@ -56,6 +56,7 @@ let defaultValueMapper = str => {
   | "option<int>" => `None`
   | "option<bool>" => `None`
   | "array<string>" => `[]`
+  | "array<float>" => `[]`
   | "option<Js.Json.t>" => "None"
   | "Js.Json.t" => "Js.Dict.empty()->Js.Json.object_"
   | "array<int>" => `[]`
@@ -123,10 +124,12 @@ let typeFunctionMapper = (str, type_) => {
   | "option<string>" => `getOptionString(dict, "${type_}")`
   | "option<int>" => `getOptionInt(dict, "${type_}")`
   | "option<bool>" => `getOptionBool(dict, "${type_}")`
+  | "array<float>" => `getFloatArrayFromDict(dict, "${type_}")`
   | "option<Js.Json.t>" => `getOptionalJsonFromDict(dict, "${type_}")`
   | "Js.Json.t" => `getJsonObjectFromDict(dict, "${type_}")`
   | "array<string>" => `getStrArrayFromDict(dict, "${type_}", [])`
   | "array<int>" => `getIntArrayFromDict(dict, "${type_}", [])`
+  | "option<array<float>>" => `getOptionFloatArrayFromDict(dict, "${type_}")`
   | "option<array<string>>" => `getOptionStrArrayFromDict(dict, "${type_}")`
   | "option<array<int>>" => `getOptionIntArrayFromDict(dict, "${type_}")`
   | str => `||get${type_->replaceFirstLetterUpper}(dict, "${type_}")**${str}**||`
