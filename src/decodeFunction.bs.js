@@ -24,7 +24,7 @@ function replaceFirstLetterUpper(inputString) {
 function getRecordType(str, type_) {
   var re = new RegExp("(type\\s" + type_ + "+)\\s[=]\n*\\s+({([a-zA-Z0-9_ :.,\n*\\s<>]+)})+");
   var vareintRe = new RegExp("type\\s+" + type_ + "+\\s*=\\s*(\|[^|]+)");
-  var vareintTypeRe = new RegExp("type\\s+" + type_ + "\\s*=\\s*([A-Z][a-zA-Z0-9()\\s\|]+)\n");
+  var vareintTypeRe = new RegExp("type\\s+" + type_ + "\\s*=\\s*[\\|?\\s]\\s*([A-Z][a-zA-Z0-9()_\\s\|]+)\n");
   var match = str.match(re);
   if (match !== null) {
     return [
@@ -62,6 +62,8 @@ function defaultUserTypedValue(str) {
     return "None";
   } else if (str.startsWith("array")) {
     return "[]";
+  } else if (str.startsWith("Js.Nullable")) {
+    return "Js.Json.null";
   } else {
     return "default" + replaceFirstLetterUpper(str) + "";
   }
@@ -71,24 +73,12 @@ function defaultValueMapper(str) {
   switch (str) {
     case "Js.Json.t" :
         return "Js.Dict.empty()->Js.Json.object_";
-    case "array<float>" :
-    case "array<int>" :
-    case "array<string>" :
-        return "[]";
     case "bool" :
         return "false";
     case "float" :
         return "0.0";
     case "int" :
         return "0";
-    case "option<Js.Json.t>" :
-    case "option<array<int>>" :
-    case "option<array<string>>" :
-    case "option<bool>" :
-    case "option<float>" :
-    case "option<int>" :
-    case "option<string>" :
-        return "None";
     case "string" :
         return "\"\"";
     default:

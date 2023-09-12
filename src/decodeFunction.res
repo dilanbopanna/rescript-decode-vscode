@@ -20,7 +20,8 @@ type type_ = Varient | Normal
 let getRecordType = (str, type_) => {
   let re = `(type\\s${type_}+)\\s[=]\n*\\s+({([a-zA-Z0-9_ :.,\n*\\s<>]+)})+`->Js.Re.fromString
   let vareintRe = `type\\s+${type_}+\\s*=\\s*(\|[^|]+)`->Js.Re.fromString
-  let vareintTypeRe = `type\\s+${type_}\\s*=\\s*([A-Z][a-zA-Z0-9()\\s\|]+)\n`->Js.Re.fromString
+  let vareintTypeRe =
+    `type\\s+${type_}\\s*=\\s*[\\|?\\s]\\s*([A-Z][a-zA-Z0-9()_\\s\|]+)\n`->Js.Re.fromString
   switch str->Js.String2.match_(re) {
   | Some(match) => (Normal, (match->Belt.Array.keepMap(x => x))[2])
   | None =>
@@ -40,6 +41,8 @@ let defaultUserTypedValue = str => {
     "None"
   } else if str->Js.String2.startsWith("array") {
     "[]"
+  } else if str->Js.String2.startsWith("Js.Nullable") {
+    "Js.Json.null"
   } else {
     `default${str->replaceFirstLetterUpper}`
   }
@@ -51,17 +54,7 @@ let defaultValueMapper = str => {
   | "int" => `0`
   | "bool" => `false`
   | "float" => `0.0`
-  | "option<float>" => `None`
-  | "option<string>" => `None`
-  | "option<int>" => `None`
-  | "option<bool>" => `None`
-  | "array<string>" => `[]`
-  | "array<float>" => `[]`
-  | "option<Js.Json.t>" => "None"
   | "Js.Json.t" => "Js.Dict.empty()->Js.Json.object_"
-  | "array<int>" => `[]`
-  | "option<array<string>>" => `None`
-  | "option<array<int>>" => `None`
   | str => str->defaultUserTypedValue
   }
 }

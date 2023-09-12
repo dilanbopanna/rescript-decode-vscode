@@ -1,6 +1,6 @@
 {
   "name": "rescript-decode",
-  "displayName": "Rescript Decode",
+  "displayName": "ReScript Decode",
   "description": "Precision JSON-to-Rescript type conversion for generating efficient decode functions in Visual Studio Code.",
   "version": "1.0.0",
   "icon": "res-dec-logo.png",
