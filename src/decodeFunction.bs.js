@@ -38,7 +38,7 @@ function getRecordType(str, type_) {
   if (match$1 === null) {
     return [
             /* Normal */1,
-            "// Unable to find type"
+            "// Unable to find type " + type_
           ];
   }
   var match$2 = str.match(vareintTypeRe);
@@ -52,7 +52,7 @@ function getRecordType(str, type_) {
   } else {
     return [
             /* Varient */0,
-            "// Unable to find type"
+            "// Unable to find type " + type_
           ];
   }
 }
@@ -231,9 +231,12 @@ function generateDecode(type_, mainStr) {
   var kind = match[0];
   var convertedBlock;
   if (kind) {
-    convertedBlock = blockScopeTypes.replace(/([A-Za-z0-9_^]+)+\s*[:]\s+([a-zA-Z0-9_.<>]+)/g, (function (param, first, second, param$1, param$2) {
-            var valueMapper = typeFunctionMapper(second, first);
-            return "\t" + first + " : " + valueMapper + "";
+    convertedBlock = blockScopeTypes.replace(/(@as+[A-Za-z0-9_()^@\\\\\"]+)?\s+([A-Za-z0-9_\"\\^]+)+\s*[:]\s+([a-zA-Z0-9_.<>]+)/g, (function (param, first, second, third, param$1, param$2) {
+            var first$1 = Belt_Option.getWithDefault(first, "").replace("\"", "").replace("\"", "").replace("(", "").replace(")", "").replace("@as", "");
+            var second$1 = second.trim();
+            var third$1 = third.trim();
+            var valueMapper = typeFunctionMapper(third$1, first$1.length > 0 ? first$1 : second$1);
+            return "\t" + second$1 + " : " + valueMapper + "\n";
           }));
   } else {
     var caseBlock = funcWarning(blockScopeTypes.split("|").reduce((function (acc, item) {

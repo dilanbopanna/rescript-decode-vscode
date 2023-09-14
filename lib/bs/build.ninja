@@ -3,11 +3,14 @@ rule astj
   command = /Users/bopanna.mj/Code/rescript-decode/node_modules/rescript/darwinarm64/bsc.exe  -bs-v 10.1.4  -absname -bs-ast -o $out $i
 o src/decodeFunction.ast : astj ../../src/decodeFunction.res
 rule deps
-  command = /Users/bopanna.mj/Code/rescript-decode/node_modules/rescript/darwinarm64/bsb_helper.exe -hash f7bd21a12e75d25b445f60faa6bdd654 $in
+  command = /Users/bopanna.mj/Code/rescript-decode/node_modules/rescript/darwinarm64/bsb_helper.exe -hash 41e798db676fe6c6c2b6bb0c3805edeb $in
   restat = 1
 o src/decodeFunction.d : deps src/decodeFunction.ast
 rule mij
-  command = /Users/bopanna.mj/Code/rescript-decode/node_modules/rescript/darwinarm64/bsc.exe -I src   -bs-package-name rescript-decode -bs-package-output commonjs:$in_d:.bs.js $i
+  command = /Users/bopanna.mj/Code/rescript-decode/node_modules/rescript/darwinarm64/bsc.exe -I src/Utils -I src   -bs-package-name rescript-decode -bs-package-output commonjs:$in_d:.bs.js $i
   dyndep = 1
   restat = 1
 o src/decodeFunction.cmj src/decodeFunction.cmi ../../src/decodeFunction.bs.js : mij src/decodeFunction.ast
+o src/Utils/LogicUtils.ast : astj ../../src/Utils/LogicUtils.res
+o src/Utils/LogicUtils.d : deps src/Utils/LogicUtils.ast
+o src/Utils/LogicUtils.cmj src/Utils/LogicUtils.cmi ../../src/Utils/LogicUtils.bs.js : mij src/Utils/LogicUtils.ast

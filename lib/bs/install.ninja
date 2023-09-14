@@ -7,4 +7,8 @@ o decodeFunction.cmi : cp ../bs/src/decodeFunction.cmi
 o decodeFunction.cmj : cp ../bs/src/decodeFunction.cmj
 o decodeFunction.cmt : cp ../bs/src/decodeFunction.cmt
 o decodeFunction.res : cp ../../src/decodeFunction.res
-build install.stamp : touch decodeFunction.cmi decodeFunction.cmj 
+o LogicUtils.cmi : cp ../bs/src/Utils/LogicUtils.cmi
+o LogicUtils.cmj : cp ../bs/src/Utils/LogicUtils.cmj
+o LogicUtils.cmt : cp ../bs/src/Utils/LogicUtils.cmt
+o LogicUtils.res : cp ../../src/Utils/LogicUtils.res
+build install.stamp : touch decodeFunction.cmi decodeFunction.cmj LogicUtils.cmi LogicUtils.cmj 

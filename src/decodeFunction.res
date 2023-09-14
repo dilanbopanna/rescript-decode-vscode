@@ -29,9 +29,9 @@ let getRecordType = (str, type_) => {
     | Some(_) =>
       switch str->Js.String2.match_(vareintTypeRe) {
       | Some(match) => (Varient, (match->Belt.Array.keepMap(x => x))[1])
-      | None => (Varient, "// Unable to find type")
+      | None => (Varient, "// Unable to find type " ++ type_)
       }
-    | None => (Normal, "// Unable to find type")
+    | None => (Normal, "// Unable to find type " ++ type_)
     }
   }
 }
@@ -254,11 +254,22 @@ let generateDecode = (type_, mainStr) => {
 
   let convertedBlock = switch kind {
   | Normal =>
-    blockScopeTypes->Js.String2.unsafeReplaceBy2(
-      %re("/([A-Za-z0-9_^]+)+\s*[:]\s+([a-zA-Z0-9_.<>]+)/g"),
-      (_, first, second, _, _) => {
-        let valueMapper = second->typeFunctionMapper(first)
-        `\t${first} : ${valueMapper}`
+    blockScopeTypes->Js.String2.unsafeReplaceBy3(
+      %re("/(@as+[A-Za-z0-9_()^@\\\\\"]+)?\s+([A-Za-z0-9_\"\\^]+)+\s*[:]\s+([a-zA-Z0-9_.<>]+)/g"),
+      (_, first, second, third, _, _) => {
+        let first =
+          Some(first)
+          ->Belt.Option.getWithDefault("")
+          ->Js.String2.replace("\"", "")
+          ->Js.String2.replace("\"", "")
+          ->Js.String2.replace("(", "")
+          ->Js.String2.replace(")", "")
+          ->Js.String2.replace("@as", "")
+
+        let second = second->Js.String2.trim
+        let third = third->Js.String2.trim
+        let valueMapper = third->typeFunctionMapper(first->Js.String2.length > 0 ? first : second)
+        `\t${second} : ${valueMapper}\n`
       },
     )
   | Varient => {

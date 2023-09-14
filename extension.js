@@ -88,8 +88,10 @@ function activate(context) {
       const fileContents = editor.document.getText();
 
       let result = decodeFunction.generateDecode(typeName, fileContents);
-
-      vscode.env.clipboard.writeText(result).then(() => {
+      let res = `open LogicUtils // Import Utilities from your Utils file
+        ${result}
+        `;
+      vscode.env.clipboard.writeText(res).then(() => {
         vscode.window.showInformationMessage(
           `${typeName} : Generated code copied to clipboard.`
         );
