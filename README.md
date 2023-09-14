@@ -17,6 +17,8 @@ Rescript Decode is a sophisticated Visual Studio Code extension meticulously cra
 
 For every Rescript type, a conveniently located interface button allows effortless generation of decode functions. A simple click on this button triggers the automatic creation of the function, which is then seamlessly copied to your clipboard for immediate and convenient integration into your codebase.
 
+Get LogicUtils from this file [Utils](https://github.com/dilanbopanna/rescript-decode-vscode/blob/main/src/Utils/LogicUtils.res)
+
 - Utilize the `enableDecodeButton` command to activate the decode button, which will be displayed above Rescript types.
 
 ## Installation
